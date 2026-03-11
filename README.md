@@ -20,13 +20,17 @@ The implementation is organized into three main steps:
    - construction of per-seed nondominated sets
    - candidate-set consolidation
    - preliminary hypervolume and spread diagnostics
+     
+2. **Reference-point construction**
+   - computation of a single fixed hypervolume reference point from the nominal results
+   - export of the reference point to `REF_global.mat`
 
-2. **Step B — Optimizer variability analysis**
+3. **Step B — Optimizer variability analysis**
    - hypervolume computation with a fixed reference point
    - empirical attainment analysis
    - construction of the final candidate set for robustness analysis
 
-3. **Step C — Prior-predictive robustness analysis**
+4. **Step C — Prior-predictive robustness analysis**
    - Monte Carlo propagation of stochastic exogenous drivers
    - computation of robustness metrics
    - filtering and ranking of candidate interventions
@@ -40,6 +44,7 @@ The implementation is organized into three main steps:
 ## Main files
 
 - `STEP_A.m` — nominal multi-objective optimization
+- `MAKE_REF.m` — construction of the fixed hypervolume reference point from nominal outputs
 - `STEP_B.m` — optimizer variability and candidate-set construction
 - `STEP_C.m` — prior-predictive robustness analysis
 - `obj_fun.m` — objective-function evaluator
@@ -61,19 +66,10 @@ To ensure reproducibility:
 
 A typical execution order is:
 
-1. Run `STEP_A.m`
-2. Run `STEP_B.m`
-3. Run `STEP_C.m`
-
-## Inputs and outputs
-
-The scripts generate intermediate files such as:
-
-- `STEP_A_outputs.mat`
-- `STEP_B_outputs.mat`
-- `STEP_C_outputs.mat`
-
-and exported figures in `.png`, `.eps`, and `.csv` formats.
+1. Run `STEP_A_nominal_MOO.m`
+2. Run `MAKE_REF.m`
+3. Run `STEP_B_variability.m`
+4. Run `STEP_C_robustness.m`
 
 ## Data availability
 
